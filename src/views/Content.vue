@@ -21,21 +21,27 @@
       </h4>
 
       <p class="text-base text-gray-600 leading-normal">
-        You have a new message!
+        {{ now() }}
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 export default {
   name: 'Content',
 
   setup () {
     const name = ref('內容666')
 
-    return { name }
+    const dayjs = inject('dayjs')
+
+    const now = () => {
+      return dayjs().format('YYYY年MM月DD日 HH:mm:ss')
+    }
+
+    return { name, now }
   }
 }
 </script>
