@@ -21,27 +21,40 @@
       </h4>
 
       <p class="text-base text-gray-600 leading-normal">
-        {{ now() }}
+        {{ now }}
       </p>
+
+      <font-awesome-icon icon="user-secret"></font-awesome-icon>
+      <FontAwesomeIcon icon="shopping-cart"></FontAwesomeIcon>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, inject } from 'vue'
+import { inject, computed } from 'vue'
 export default {
   name: 'Content',
 
   setup () {
-    const name = ref('內容666')
-
     const dayjs = inject('dayjs')
 
-    const now = () => {
-      return dayjs().format('YYYY年MM月DD日 HH:mm:ss')
-    }
+    const now = computed(() =>
+      dayjs().format('YYYY年MM月DD日 HH:mm:ss')
+    )
 
-    return { name, now }
+    const date1 = dayjs('2019-01-25')
+    const date2 = dayjs('2018-01-25')
+    const diffWithMonth = date1.diff(date2)
+
+    const durationWithDiff = dayjs.duration(diffWithMonth)
+    const years = durationWithDiff.years()
+    const months = durationWithDiff.months()
+    const days = durationWithDiff.days()
+    console.log('months', months)
+    console.log('days', days)
+    console.log('years', years)
+
+    return { now }
   }
 }
 </script>
